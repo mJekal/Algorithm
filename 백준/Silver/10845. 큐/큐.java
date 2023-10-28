@@ -1,57 +1,15 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 	
-	static int head, tail = 0;
-	static int[] queue = new int[10000005];
 	
-	static void push(int item) {
-		queue[tail++] = item;
-	}
-	
-	static int pop() {
-		if(tail == head) {
-			return -1;
-		}
-		else {
-		return queue[head++];
-	}
-	}
-	
-	static int size() {
-		return tail - head;
-	}
-	
-	static int empty() {
-		if(tail == head) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
-	
-	static int front() {
-		if(tail == head) {
-			return -1;
-		}
-		else {
-			return queue[head];
-		}
-	}
-	static int back() {
-		if(tail == head) {
-			return -1;
-		}
-		else {
-			return queue[tail-1];
-		}
-	}
-	
-	
+	static Queue<Integer> queue = new LinkedList<>();
+	static int tail;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -63,22 +21,29 @@ public class Main {
 			
 			switch(S) {
 			case "push" :
-				push(Integer.parseInt(st.nextToken()));
+				tail = Integer.parseInt(st.nextToken());
+				queue.offer(tail);
 				break;
 			case "pop" :
-				sb.append(pop()).append("\n");
+				if(queue.isEmpty()) {
+					sb.append(-1).append("\n");
+				}else {
+				sb.append(queue.poll()).append("\n");}
 				break;
 			case "size" :
-				sb.append(size()).append("\n");
+				sb.append(queue.size()).append("\n");
 				break;
 			case "empty" :
-				sb.append(empty()).append("\n");
+				if(queue.isEmpty()) sb.append(1).append("\n");
+				else sb.append(0).append("\n");
 				break;
 			case "front" :
-				sb.append(front()).append("\n");
+				if(queue.isEmpty()) sb.append(-1).append("\n");
+				else sb.append(queue.peek()).append("\n");
 				break;
 			case "back" :
-				sb.append(back()).append("\n");
+				if(queue.isEmpty()) sb.append(-1).append("\n");
+				else sb.append(tail).append("\n");
 				break;
 			}
 		}
