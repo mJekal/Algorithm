@@ -1,49 +1,69 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static class Pair {
-        int x, y;
 
-        Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
+	static class Pair {
+		int x, y;
+		Pair(int x,int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+	}
+	
+	static int[] dx = {2,1,-1,-2,-2,-1, 1, 2};
+	static int[] dy = {1,2, 2, 1,-1,-2,-2,-1};
+	
+	public static void main(String[] args) throws IOException  {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int T = Integer.parseInt(br.readLine());
+		for(int tc=0; tc<T;tc++) {
+			int I = Integer.parseInt(br.readLine());
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			
+			Queue<Pair> Q = new LinkedList<>();
+			
+			int[][] dist = new int[I][I] ;
+			
+			for(int i = 0; i<I; i++) {
+				for(int j = 0; j<I; j++) {
+				dist[i][j] = -1;
+			}
+			}
+			
+			int kk = Integer.parseInt(st.nextToken());
+			int tt = Integer.parseInt(st.nextToken());
+			
+			st = new StringTokenizer(br.readLine());
+			int k = Integer.parseInt(st.nextToken());
+			int t = Integer.parseInt(st.nextToken());
 
-    static int[] dx = {2, 1, -1, -2, -2, -1, 1, 2};
-    static int[] dy = {1, 2, 2, 1, -1, -2, -2, -1};
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        for (int tc = 0; tc < t; tc++) {
-            int n = Integer.parseInt(br.readLine());
-            int[][] dist = new int[n][n];
-            for (int i = 0; i < n; i++) {
-                Arrays.fill(dist[i], -1);
-            }
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-            dist[x][y] = 0;
-            Queue<Pair> Q = new LinkedList<>();
-            Q.add(new Pair(x, y));
-            st = new StringTokenizer(br.readLine());
-            int xx = Integer.parseInt(st.nextToken());
-            int yy = Integer.parseInt(st.nextToken());
-            while (!Q.isEmpty()) {
-                Pair cur = Q.poll();
-                for (int dir = 0; dir < 8; dir++) {
-                    int nx = cur.x + dx[dir];
-                    int ny = cur.y + dy[dir];
-                    if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
-                    if (dist[nx][ny] >= 0) continue;
-                    dist[nx][ny] = dist[cur.x][cur.y] + 1;
-                    Q.add(new Pair(nx, ny));
-                }
-            }
-            System.out.println(dist[xx][yy]);
-        }
-    }
+			dist[kk][tt] = 0;
+			Q.add(new Pair(kk,tt));
+			
+			while(!Q.isEmpty()) {
+			Pair cur = Q.poll();
+			for(int dir=0; dir<8; dir++) {			
+				int ny = cur.y + dy[dir];
+				int nx = cur.x + dx[dir];
+			
+			if(nx<0||nx>=I||ny<0||ny>=I) continue;
+			if(dist[nx][ny]!=-1) continue;
+				dist[nx][ny] = dist[cur.x][cur.y]+1;
+				Q.add(new Pair(nx,ny));
+				
+			}
+			}
+			
+			
+			
+	System.out.println(dist[k][t]);	
+	}
+	
+	}
+	
+	
+	
+	
 }
