@@ -1,15 +1,9 @@
 class Solution {
     boolean solution(String s) {
-        int cntp = 0,cnty = 0;
-        for(int i = 0; i<s.length(); i++){
-            if (s.charAt(i) == 'p'||s.charAt(i) == 'P'){cntp+=1;}
-            if (s.charAt(i) == 'y'||s.charAt(i) == 'Y'){cnty+=1;}
-        }
-        boolean answer = true;
-        if(cntp!=cnty){answer=false;}
+        s = s.toLowerCase();
+        int p_cnt = s.length() - s.replace("p","").length();
+        int y_cnt = s.length() - s.replace("y","").length();
 
-        return answer;
+        return p_cnt == y_cnt;
     }
 }
-
-
