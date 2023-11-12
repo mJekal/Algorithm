@@ -1,71 +1,67 @@
-
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-	    static class Pair {
-	        int x, y;
-	        Pair(int x, int y) {
-	            this.x = x;
-	            this.y = y;
-	        }
-	    }
-        static int cnt = 0;
-        static int area = 0;
-        static int max = 0;
-	    // 상우하좌(시계)
-	    static int[] dx = {1, 0, -1, 0};
-	    static int[] dy = {0, 1, 0, -1};
+	static int N, M, cnt;
+	static int max, area;
+	static int[][] board;
+	static boolean[][] vis;
+	static int[] dx = { 1, 0, -1, 0 };
+	static int[] dy = { 0, 1, 0, -1 };
 
-	    public static void main(String[] args) throws IOException {
-	    	
-	    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	    	
-	    	StringTokenizer st = new StringTokenizer(br.readLine());
-	    	int n = Integer.parseInt(st.nextToken());
-	    	int m = Integer.parseInt(st.nextToken());
-	    	
-	    	int[][] board = new int[n][m];
-		    boolean[][] vis = new boolean[n][m];
-	    	
-	    	for (int i = 0; i < n ; i++) {
-	    		st = new StringTokenizer(br.readLine());
-	    		for (int j = 0; j < m; j++) {
-	    			board[i][j] = Integer.parseInt(st.nextToken());
-	    		}
-	    	}
-	    	
-	        Queue<Pair> Q = new LinkedList<>();
+	static class Pair {
+		int x, y;
 
-	        for(int i=0; i<n; i++){
-	            for(int j=0; j<m; j++){
-	            	if(vis[i][j] || board[i][j]==0) {
-	            		continue;
-	            	}
-	    	        vis[i][j] = true;
-	    	        Q.add(new Pair(i, j));
+		Pair(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
 
-	        while (!Q.isEmpty()) {
-	            Pair cur = Q.poll();
-	            area++;
-	            for (int dir = 0; dir < 4; dir++) {
-	                int nx = cur.x + dx[dir];
-	                int ny = cur.y + dy[dir];
-	                if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-	                if (vis[nx][ny] || board[nx][ny] != 1) continue;
-	                vis[nx][ny] = true;
-	                Q.add(new Pair(nx, ny));
-	            }
-	        }
-	        cnt++;
-	        if(area > max){
-                max = area;
-	    }
-        	area = 0;
-            }
-           }
-	        System.out.println(cnt);
-	        System.out.println(max);
+	static Queue<Pair> q = new LinkedList<>();
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+
+		board = new int[N][M];
+		vis = new boolean[N][M];
+
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < M; j++) {
+				board[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < M; j++) {
+				if (vis[i][j] == true || board[i][j] == 0)
+					continue;
+				vis[i][j] = true;
+				q.add(new Pair(i, j));
+
+				while (!q.isEmpty()) {
+					area++;
+					Pair cur = q.poll();
+					for (int dir = 0; dir < 4; dir++) {
+						int nx = cur.x + dx[dir];
+						int ny = cur.y + dy[dir];
+						if (nx < 0 || nx >= N || ny < 0 || ny >= M)
+							continue;
+						if (vis[nx][ny] != false || board[nx][ny] != 1)
+							continue;
+						vis[nx][ny] = true;
+						q.add(new Pair(nx, ny));
+					}
+				}
+				cnt++;
+				max = Math.max(max, area);
+				area = 0;
+			}
+		}
+		System.out.println(cnt);
+		System.out.println(max);
+	}
 }
-}
-
-
