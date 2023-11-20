@@ -1,13 +1,18 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[] numbers) {
-        int answer = 0;
-        int[] arr = new int[10];
-        for(int num : numbers){
-            arr[num] = 1;
+        Set<Integer> set = new HashSet<>();
+        for(int num: numbers){
+            set.add(num);
         }
-        for(int i = 0; i<=9; i++){
-            if(arr[i] == 0) answer+=i;
+        int sum = 0;
+        for(int i = 1; i<=9; i++){
+            if(set.contains(i)){
+                continue;
+            }
+            sum += i;
         }
-        return answer;
+        return sum;
     }
 }
