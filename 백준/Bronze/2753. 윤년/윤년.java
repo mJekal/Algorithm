@@ -2,18 +2,14 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-
 	public static void main(String[] args) throws IOException {
-
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		if (N % 4 == 0 && N % 100 != 0)
+		int year = Integer.parseInt(br.readLine());
+
+		if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
 			System.out.println("1");
-		else if (N % 4 == 0 && N % 400 == 0)
-			System.out.println("1");
-		else
+		} else {
 			System.out.println("0");
-
+		}
 	}
-
 }
