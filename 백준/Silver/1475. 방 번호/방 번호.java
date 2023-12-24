@@ -1,24 +1,25 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class Main {
+public class Main {
+	static int[] num = new int[10];
 	static int max = Integer.MIN_VALUE;
-	static int[] result = new int[10];
-
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		for (char c : br.readLine().toCharArray()) {
-			result[c - '0']++;
+		String s = br.readLine();
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '9') {
+				num[(s.charAt(i) - '0') - 3]++;
+			} else {
+				num[s.charAt(i) - '0']++;
+			}
 		}
-		result[6] += result[9];
-		if(result[6] % 2 == 0) {
-			result[6] /= 2;
-		} else {
-			result[6] = result[6] / 2 + 1;
-		}
+		num[6] = (num[6]+1) / 2;
 		for (int i = 0; i < 9; i++) {
-			max = Math.max(result[i], max);
+			if(max < num[i]) {
+				max = num[i];
+			}
 		}
-		System.out.print(max);
+		System.out.println(max);
 	}
 }
