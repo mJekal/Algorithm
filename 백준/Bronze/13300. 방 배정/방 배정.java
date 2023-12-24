@@ -18,16 +18,15 @@ public class Main {
 			int year = Integer.parseInt(st.nextToken());
 			mem[year - 1][sex]++;
 		}
-
+		
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 2; j++) {
-				if (mem[i][j] != 0) {
+				if (mem[i][j] == 0)
+					continue;
+				if (mem[i][j] % K != 0) {
 					cnt++;
 				}
-				if (mem[i][j] > K) {
-					cnt += mem[i][j] / K;
-				}
-
+				cnt += mem[i][j] / K;
 			}
 		}
 		System.out.print(cnt);
