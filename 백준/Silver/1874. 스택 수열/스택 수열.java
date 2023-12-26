@@ -5,7 +5,6 @@ public class Main {
 
 	static Stack<Integer> stack = new Stack<>();
 	static int cnt = 1;
-	static boolean isNO;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,13 +18,11 @@ public class Main {
 			}
 			if (stack.peek() != cur) {
 				System.out.println("NO");
-				isNO = true;
-				break;
+			return;
 			}
 			stack.pop();
 			sb.append("-\n");
 		}
-		if (!isNO)
 			System.out.println(sb);
 	}
 }
