@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-
 	static class Pair {
 		int x, y;
 
@@ -14,36 +13,33 @@ public class Main {
 
 	static char[][] board;
 	static boolean[][] vis;
-	static int n;
 	static int[] dx = { 1, 0, -1, 0 };
 	static int[] dy = { 0, 1, 0, -1 };
+	static int N;
+	static int cnt;
 
-	static void bfs(int i, int j) {
-		Queue<Pair> Q = new LinkedList<>();
-		Q.add(new Pair(i, j));
-		vis[i][j] = true;
-		while (!Q.isEmpty()) {
-			Pair cur = Q.poll();
-			for (int dir = 0; dir < 4; dir++) {
-				int nx = cur.x + dx[dir];
-				int ny = cur.y + dy[dir];
-				if (nx < 0 || nx >= n || ny < 0 || ny >= n)
+	static int bfs() {
+		cnt = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (vis[i][j] == true)
 					continue;
-				if (vis[nx][ny] || board[i][j] != board[nx][ny])
-					continue;
-				vis[nx][ny] = true;
-				Q.add(new Pair(nx, ny));
-			}
-		}
-	}
-
-	static int area() {
-		int cnt = 0;
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (!vis[i][j]) {
-					cnt++;
-					bfs(i, j);
+				cnt++;
+				Queue<Pair> q = new LinkedList<>();
+				vis[i][j] = true;
+				q.add(new Pair(i, j));
+				while (!q.isEmpty()) {
+					Pair cur = q.poll();
+					for (int dir = 0; dir < 4; dir++) {
+						int nx = cur.x + dx[dir];
+						int ny = cur.y + dy[dir];
+						if (nx < 0 || nx >= N || ny < 0 || ny >= N)
+							continue;
+						if (board[i][j] != board[nx][ny] || vis[nx][ny] == true)
+							continue;
+						vis[nx][ny] = true;
+						q.add(new Pair(nx, ny));
+					}
 				}
 			}
 		}
@@ -52,37 +48,26 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(br.readLine());
-		board = new char[n][n];
-		vis = new boolean[n][n];
+		N = Integer.parseInt(br.readLine());
 
-		for (int i = 0; i < n; i++) {
-			String row = br.readLine();
-			for (int j = 0; j < n; j++) {
-				board[i][j] = row.charAt(j);
+		board = new char[N][N];
+		vis = new boolean[N][N];
+
+		for (int i = 0; i < N; i++) {
+			String str = br.readLine();
+			for (int j = 0; j < N; j++) {
+				board[i][j] = str.charAt(j);
 			}
 		}
-
-		int not = area();
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				vis[i][j] = false;
-			}
-		}
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+		System.out.println(bfs());
+		for (int i = 0; i < N; i++) {
+			Arrays.fill(vis[i], false);
+			for (int j = 0; j < N; j++) {
 				if (board[i][j] == 'G') {
 					board[i][j] = 'R';
 				}
 			}
 		}
-
-		int is = area();
-
-		System.out.println(not + " " + is);
+		System.out.println(bfs());
 	}
-
 }
-
