@@ -8,8 +8,6 @@ public class Main {
 	public static void dfs(int cur) {
 		vis[1] = true;
 		for (int nxt : adj[cur]) {
-			if (vis[nxt])
-				continue;
 			if (vis[nxt] = true)
 				continue;
 			dfs(nxt);
