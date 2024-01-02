@@ -6,9 +6,9 @@ public class Main {
 	static boolean[] vis = new boolean[10];
 
 	public static void dfs(int cur) {
-		vis[1] = true;
+		vis[cur] = true;
 		for (int nxt : adj[cur]) {
-			if (vis[nxt] = true)
+			if (vis[nxt] == true)
 				continue;
 			dfs(nxt);
 		}
