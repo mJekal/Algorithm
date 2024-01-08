@@ -13,15 +13,7 @@ public class Main {
 			board[i] = Integer.parseInt(br.readLine());
 		}
 
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N - 1 - i; j++) {
-				if (board[j] > board[j + 1]) {
-					int temp = board[j+1];
-					board[j + 1] = board[j];
-					board[j] = temp;
-				}
-			}
-		}
+		Arrays.sort(board);
 		for (int i = 0; i < N; i++) {
 			System.out.println(board[i]);
 		}
