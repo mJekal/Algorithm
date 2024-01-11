@@ -2,21 +2,24 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-	static int[] table = new int[1000004];
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		table[1] = 0;
-		for (int x = 2; x <= N; x++) {
-			table[x] = table[x - 1] + 1;
-			if (x % 3 == 0) {
-				table[x] = Math.min(table[x / 3] + 1, table[x]);
+	static int[] dp;
+	static int mn;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		dp = new int[N + 1];
+		dp[1] = 0;
+		for (int i = 2; i <= N; i++) {
+			dp[i] = dp[i - 1] + 1;
+			if (i % 3 == 0) {
+				dp[i] = Math.min(dp[i / 3] + 1, dp[i]);
 			}
-			if (x % 2 == 0) {
-				table[x] = Math.min(table[x], table[x / 2] + 1);
+			if (i % 2 == 0) {
+				dp[i] = Math.min(dp[i], dp[i / 2] + 1);
 			}
 		}
-		System.out.println(table[N]);
+		System.out.println(dp[N]);
 	}
 }
