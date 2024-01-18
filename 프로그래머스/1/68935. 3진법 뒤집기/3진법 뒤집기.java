@@ -1,18 +1,18 @@
 import java.util.*;
-
 class Solution {
     public int solution(int n) {
-        List<Integer> ans = new ArrayList<>();
-        while(n > 0){
-            ans.add(n % 3);
-            n = n / 3;
-        }
         int answer = 0;
-        int power = 0;
-        for(int i = ans.size() - 1; i >= 0; i--){
-            answer += ans.get(i) * Math.pow(3, power);
-            power++;
+        int sum = 0;
+        String str = "";
+        while(n>0){
+            answer = n % 3;
+            str += Integer.toString(answer);
+            n /= 3;
         }
-        return answer;
+        for(int i =0  ; i<str.length(); i++){
+            int k = (str.charAt(str.length()-1-i) - '0') * (int)Math.pow(3,i);
+            sum+=k;
+        }
+        return sum;
     }
 }
