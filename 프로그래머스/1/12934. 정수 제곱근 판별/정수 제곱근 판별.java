@@ -1,12 +1,13 @@
+import java.util.*;
+
 class Solution {
     public long solution(long n) {
-        long sqrRt = (long)Math.sqrt(n);
-
-        if (sqrRt * sqrRt == n) {
-            return (sqrRt + 1) * (sqrRt + 1);
+        long answer = -1;
+        for(long i = 1; i<=Math.sqrt(n); i++){
+            if(i*i == n){
+                return (i+1)*(i+1);
+            }
         }
-        else {
-            return -1;
-        }
+        return answer;
     }
 }
