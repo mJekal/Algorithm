@@ -1,24 +1,18 @@
 class Solution {
     public String solution(String s) {
-        StringBuilder sb = new StringBuilder(); 
-        boolean ToUpper = true;
-        for(char c: s.toCharArray()){
+        String answer = "";
+        int idx = 0;
+        for(char c : s.toCharArray()){
             if(c == ' '){
-                sb.append(c);
-                ToUpper = true;
-            } else{
-                if(ToUpper==true){
-                    sb.append(Character.toUpperCase(c));
-            } else if(ToUpper==false){
-                    sb.append(Character.toLowerCase(c));
-            } 
-                ToUpper = !ToUpper;
-            
-           
+                idx = 1;
+            }
+            if(idx % 2 == 0){
+                answer +=  Character.toUpperCase(c);
+            }else{
+                answer += Character.toLowerCase(c);
+            }
+            idx++;
         }
-        }
-        String answer = sb.toString();
         return answer;
-    
-}
+    }
 }
