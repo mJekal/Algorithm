@@ -2,21 +2,21 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        Queue<Integer> Q = new LinkedList<>();
-        List<Integer> answer = new ArrayList<>();
-        Q.add(arr[0]);
-        answer.add(arr[0]);
-        for(int i= 1; i<arr.length; i++){
-            if(Q.peek()!=arr[i]) {answer.add(arr[i]);}
-            Q.poll();
-            Q.add(arr[i]);
-        }
+        int index = 1;
+        int cnt = 0;
         
-        int[] result = new int[answer.size()];
-        for (int i = 0; i < answer.size(); i++) {
-            result[i] = answer.get(i);
+        for(int i = 1; i<arr.length; i++){
+            if(arr[i] != arr[i-1]){
+                cnt++;
+            }
         }
-
-        return result;
+        int[] answer = new int[cnt+1];
+        answer[0] = arr[0];
+                for(int i = 1; i<arr.length; i++){
+            if(arr[i] != arr[i-1]){
+                answer[index++] = arr[i];
+            }
+        }
+        return answer;
     }
 }
