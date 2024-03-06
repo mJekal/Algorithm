@@ -10,9 +10,9 @@ class Solution {
         for(String call: callings){
             int k = map.get(call);
             String str = players[k-1];
-            map.replace(str,k);;
+            map.put(str,k);;
             players[k]=str;
-            map.replace(call,k-1);
+            map.put(call,k-1);
             players[k-1]=call;
         }
         return players;
